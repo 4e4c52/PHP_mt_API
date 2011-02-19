@@ -1,0 +1,78 @@
+This class covers all the functions of the Media Temple API v1.0 (beta) as published on 2/14/2011.
+Please notice that this is not an official Media Temple work.
+
+For more informations, see http://wiki.mediatemple.net/w/Category:API
+
+The class is divided into two parts. The first covers the Services API, the second the Stats API.
+
+*** How does it works? ***
+
+Just instanciate the object passing your API Key and optionnaly your service ID:
+$mt = new MtAPI('FbDgBldQMoKLwIXsBwq...', XXXXX); // Where XXXXX is an int
+
+You can set your Service ID at anytime by calling the following method :
+$mt->set_service_id(YYYYY); // Where YYYYY in an int
+
+You can access some technicals informations with the following methods:
+$url = $mt->servicesAPI(); // Return the URL of the Services API
+$url = $mt->statsAPI() // Return the URL of the Stats API
+$code = $mt->lastStatusCode(); // Return the last HTTP code (int)
+$call = $mt->lastAPICall(); // Return the last API URL called
+
+*** Services API ***
+
+Add a service:
+$result = $mt->add_service(int service_type [[,string $primary_domain], [int $os]]);
+
+List of available os:
+$os = $mt->get_os_list();
+
+List of available services:
+$services = $mt->get_available_services();
+
+List of your services:
+$services = $mt->get_services_list();
+
+List of your services ids:
+$ids = $mt->get_services_ids();
+
+Details of your service (your service id must be set):
+$details = $mt->get_service_details();
+
+Reboot your service (your service id must be set):
+$result = $mt->reboot_service();
+
+Change Plesk password (your service id must be set):
+$result = $mt->set_plesk_password(string $password);
+
+Change root password (your service id must be set):
+$result = $mt->set_root_password(string $password);
+
+Add temporary disk space (your service id must be set):
+$result = $mt->add_temp_disk();
+
+Flush firewall rules (your service id must be set):
+$result = $mt->flush_firewall();
+
+*** Stats API ***
+
+Get current stats (your service id must be set):
+$stats = $mt->get_current_stats();
+
+Get a range of stats (your service id must be set):
+$rangeStats = $mt->get_range_stats(int $start, int $end [, int $resolution [,int $precision]]);
+// Where $start and $end are a number of seconds since Epoch
+
+Get a predefined range of stats (your service id must be set):
+$rangeStats = $mt->get_predefined_range_stats(string $range);
+// See http://wiki.mediatemple.net/w/(mt):Get_predefined_range_stats#Request_Info for a list of supported ranges (ex: 5min, 1hour, ...)
+
+Get warnings (your service id must be set):
+$warnings = $mt->get_warnings();
+
+Get warnings thresholds (your service id must be set):
+$warnigsThresholds = $mt->get_warnings_thresholds();
+
+That's it!
+
+Have fun with the API.
