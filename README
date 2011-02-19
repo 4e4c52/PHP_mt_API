@@ -7,13 +7,13 @@ The class is divided into two parts. The first covers the Services API, the seco
 
 *** How does it works? ***
 
-Just instanciate the object passing your API Key and optionnaly your service ID:
+Just instantiate the object passing your API Key and optionnaly your service ID:
 $mt = new MtAPI('FbDgBldQMoKLwIXsBwq...', XXXXX); // Where XXXXX is an int
 
 You can set your Service ID at anytime by calling the following method :
 $mt->set_service_id(YYYYY); // Where YYYYY in an int
 
-You can access some technicals informations with the following methods:
+You can access some technical informations with the following methods:
 $url = $mt->servicesAPI(); // Return the URL of the Services API
 $url = $mt->statsAPI() // Return the URL of the Stats API
 $code = $mt->lastStatusCode(); // Return the last HTTP code (int)

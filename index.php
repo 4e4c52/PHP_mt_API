@@ -14,7 +14,7 @@
 		
 		$mt = new MtAPI('KEY', 00000);
 		
-		$services = '';
+		$services = array();
 		
 		//$services = $mt->get_services_ids();
 		//$services = $mt->get_service_details();
