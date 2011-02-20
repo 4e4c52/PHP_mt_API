@@ -68,7 +68,7 @@ class MtAPI {
  
   /**
    * Set service ID 
-	 */
+   */
   function set_service_id($service_id) { if (is_int($service_id)) { $this->service_id = $service_id; } }
   
   
@@ -77,7 +77,7 @@ class MtAPI {
   
   /**
    * Add a service
-	 */
+   */
 	function add_service($service_type, $primary_domain = '', $os = 16) {
 		
 		if (!is_int($service_type)) { die('Invalid service type.'); }
