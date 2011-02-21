@@ -1,14 +1,18 @@
 <?php
 
 /*
- * Nathan Le Ray (oyokoon@syrinxoon.net) http://syrinxoon.net
+ * (mt) API class
  *
  * The first PHP Library to support (mt) Media Temple's API.
+ * 
+ * @package PHP (mt) API
+ * @author  Nathan Le Ray
+ * @license Creative Commons BY-NC-SA 3.0 License
+ * @link    http://syrinxoon.net
+ * @link    http://www.mediatemple.net/api
+ * @since   Version 1.0
  */
 
-/**
- * (mt) API class
- */
 class MtAPI {
 	
   /* Contains the last HTTP status code returned. */
