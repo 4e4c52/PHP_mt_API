@@ -17,28 +17,28 @@ class MtAPI {
 	
 	/* Contains the last HTTP status code returned. */
 	public $http_code;
-    /* Contains the last HTTP headers returned. */
-    public $http_info;
-    /* Contains the last API call. */
-    public $url;
-    /* Set up the API root URL. */
-    public $host = 'https://api.mediatemple.net/api/v1/';
-    /* Respons format. */
-    public $format = 'json';
-    /* Decode returned json data. */
-    public $decode_json = TRUE;
-    /* Set wrapRoot default */
-    public $wrap_root = FALSE;
-    /* Set prettyPrint default */
-    public $pretty_print = FALSE;
-    /* Set timeout default. */
-    public $timeout = 30;
-    /* Set connect timeout. */
-    public $connecttimeout = 30; 
-    /* Verify SSL Cert. */
-    public $ssl_verifypeer = FALSE;
-    /* Set the useragent. */
-    public $useragent = 'PHP MtAPI v1.0-beta1';
+	/* Contains the last HTTP headers returned. */
+	public $http_info;
+	/* Contains the last API call. */
+	public $url;
+	/* Set up the API root URL. */
+	public $host = 'https://api.mediatemple.net/api/v1/';
+	/* Respons format. */
+	public $format = 'json';
+	/* Decode returned json data. */
+	public $decode_json = TRUE;
+	/* Set wrapRoot default */
+	public $wrap_root = FALSE;
+	/* Set prettyPrint default */
+	public $pretty_print = FALSE;
+	/* Set timeout default. */
+	public $timeout = 30;
+	/* Set connect timeout. */
+	public $connecttimeout = 30; 
+	/* Verify SSL Cert. */
+	public $ssl_verifypeer = FALSE;
+	/* Set the useragent. */
+	public $useragent = 'PHP MtAPI v1.0-beta1';
 	/* Contains the API key */
 	private $api_key;
 	/* Contains the service ID */
@@ -359,7 +359,7 @@ class MtAPI {
 	function api_call($url, $method = 'POST', $put_data = '', $post_data = array(), $get_data = array()) {
 		
 		$this->http_info = array();
-    	$ch = curl_init();
+		$ch = curl_init();
     
 		$headers = array('Expect:');
 
