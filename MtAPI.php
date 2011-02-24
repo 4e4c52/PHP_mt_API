@@ -81,12 +81,17 @@ class MtAPI {
   
 	/**
 	 * Add a service
+	 *
+	 * @return Request result according to the selected format
+	 *
  	 */
 	function add_service($service_type, $primary_domain = '', $os = 16) {
 		
 		if (!is_int($service_type)) { die('Invalid service type.'); }
 		if (!is_int($service_type)) { die('Invalid operating system. '); }
 		
+		
+		// Service type is a (dv) server
 		if ($service_type >= 725) {
 			
 			if ($primary_domain == '') { die('You must provide a primary domain'); }
@@ -103,130 +108,149 @@ class MtAPI {
 		}		
 		
 		$url = $this->servicesAPI();
-		$results = $this->api_call($url, 'POST', array(), $post_data);
-		return $this->decode_results($results);
+		return $this->api_call($url, 'POST', array(), $post_data);
 		
 	}
 	
 	/**
  	 * Get operating systems list
+ 	 *
+ 	 * @return Operating systems list (available for (ve) servers when purchasing one) according to the selected format
+ 	 *
 	 */
 	function get_os_list() {
 		
 		$url = $this->servicesAPI() . '/types/os';
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
 	/**
 	 * Get available_services
+	 *
+	 * @return Available services list (for purchase) according to the selected format
+	 *
 	 */
 	function get_available_services() {
 		
 		$url = $this->servicesAPI() . '/types';
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
 	/**
 	 * Get services list
+	 *
+	 * @return Services list according to the selected format
+	 *
 	 */
 	function get_services_list() {
 		
 		$url = $this->servicesAPI();
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
 	/**
 	 * Get services ids
+	 *
+	 * @return Services IDs list according to the selected format
+	 *
 	 */
 	function get_services_ids() {
 		
 		$url = $this->servicesAPI() . '/ids';
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
 	/**
 	 * Get service details
+	 *
+	 * @return Details of service according to the selected format
+	 *
 	 */
 	function get_service_details() {
 		
 		$this->check_service_id();
 		
 		$url = $this->servicesAPI() . '/' . $this->service_id;
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
 	/**
 	 * Reboot a service
+	 *
+	 * @return Request result according to the selected format
+	 *
 	 */
 	function reboot_service() {
 		
 		$this->check_service_id();
 		
 		$url = $this->servicesAPI() . '/' . $this->service_id . '/reboot';
-		$results = $this->api_call($url, 'POST');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'POST');
 		
 	}
 	
 	/**
 	 * Set Plesk password
+	 *
+	 * @return Request result according to the selected format
+	 *
 	 */
 	function set_plesk_password($password) {
 		
 		$this->check_service_id();
 		
 		$url = $this->servicesAPI() . '/' . $this->service_id . '/pleskPassword';
-		$results = $this->api_call($url, 'PUT', '{"password": "' . $password . '"}');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'PUT', '{"password": "' . $password . '"}');
 		
 	}
 	
 	/**
 	 * Set root password
+	 *
+	 * @return Request result according to the selected format
+	 *
 	 */
 	function set_root_password($password) {
 		
 		$this->check_service_id();
 		
 		$url = $this->servicesAPI() . '/' . $this->service_id . '/rootPassword';
-		$results = $this->api_call($url, 'PUT', '{"password": "' . $password . '"}');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'PUT', '{"password": "' . $password . '"}');
 		
 	}
 	
 	/**
 	 * Add temporary disk space
+	 *
+	 * @return Request result according to the selected format
+	 *
 	 */
 	function add_temp_disk() {
 		
 		$this->check_service_id();
 		
 		$url = $this->servicesAPI() . '/' . $this->service_id . '/disk/temp';
-		$results = $this->api_call($url, 'POST');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'POST');
 		
 	}
 	
 	/**
 	 * Flush firewall rules
+	 *
+	 * @return Request result according to the selected format
+	 *
 	 */
 	function flush_firewall() {
 		
 		$this->check_service_id();
 		
 		$url = $this->servicesAPI() . '/' . $this->service_id . '/firewall/flush';
-		$results = $this->api_call($url, 'POST');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'POST')
 		
 	}
 	
@@ -234,21 +258,26 @@ class MtAPI {
 	/** STATS METHODS **/
 	
 	
-	/*
+	/**
 	 * Get current stats
+	 *
+	 * @return Current stats according to the selected format
+	 *
 	 */
 	function get_current_stats() {
 		
 		$this->check_service_id();
 		
 		$url = $this->statsAPI() . '/' . $this->service_id;
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
-	/*
+	/**
 	 * Get range stats
+	 *
+	 * @return Stat list for the selected period according to the selected format
+	 *
 	 */
 	function get_range_stats($start, $end, $resolution = 15, $precision = 2) {
 		
@@ -264,13 +293,15 @@ class MtAPI {
 			);
 		
 		$url = $this->statsAPI() . '/' . $this->service_id;
-		$results = $this->api_call($url, 'GET', array(), array(), $get_data);
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET', array(), array(), $get_data);
 		
 	}
 	
-	/*
+	/**
 	 * Get predefined range stats
+	 *
+	 * @return Stats list for the selected range according to the selected format
+	 *
 	 */
 	function get_predefined_range_stats($range) {
 		
@@ -281,34 +312,37 @@ class MtAPI {
 		$this->check_service_id();
 		
 		$url = $this->statsAPI() . '/' . $this->service_id . '/' . $range;
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
-	/*
+	/**
 	 * Get warnings
+	 *
+	 * @return Warnings list for the last 60 minutes according to the selected format
+	 *
 	 */
 	function get_warnings() {
 		
 		$this->check_service_id();
 		
 		$url = $this->statsAPI() . '/warnings';
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
-	/*
-	 * Get wrnings
+	/**
+	 * Get warnings thresolds
+	 *
+	 * @return Warings thresolds list according to selected format
+	 *
 	 */
 	function get_warnings_thresholds() {
 		
 		$this->check_service_id();
 		
 		$url = $this->statsAPI() . '/warnings/thresholds';
-		$results = $this->api_call($url, 'GET');
-		return $this->decode_results($results);
+		return $this->api_call($url, 'GET');
 		
 	}
 	
@@ -342,6 +376,7 @@ class MtAPI {
 	 * Decode API results
 	 *
 	 * @return Decoded JSON string or plain text
+	 *
 	 */
 	function decode_results($results) {
 		
@@ -354,7 +389,8 @@ class MtAPI {
 	/**
 	 * Make an API call
 	 *
-	 * @return API results
+	 * @return API results decoded according to the selected format
+	 *
 	 */
 	function api_call($url, $method = 'POST', $put_data = '', $post_data = array(), $get_data = array()) {
 		
@@ -430,7 +466,7 @@ class MtAPI {
 
 			if ($method == 'PUT') fclose($put_file);
 
-			return $response;
+			return $this->decode_results($response);
     
 		}
 
