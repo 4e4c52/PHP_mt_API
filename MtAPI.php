@@ -15,73 +15,73 @@
 
 class MtAPI {
 	
-  /* Contains the last HTTP status code returned. */
-  public $http_code;
-  /* Contains the last HTTP headers returned. */
-  public $http_info;
-  /* Contains the last API call. */
-  public $url;
-  /* Set up the API root URL. */
-  public $host = 'https://api.mediatemple.net/api/v1/';
-  /* Respons format. */
-  public $format = 'json';
-  /* Decode returned json data. */
-  public $decode_json = TRUE;
-  /* Set wrapRoot default */
-  public $wrap_root = FALSE;
-  /* Set prettyPrint default */
-  public $pretty_print = FALSE;
-  /* Set timeout default. */
-  public $timeout = 30;
-  /* Set connect timeout. */
-  public $connecttimeout = 30; 
-  /* Verify SSL Cert. */
-  public $ssl_verifypeer = FALSE;
-  /* Set the useragent. */
-  public $useragent = 'PHP MtAPI v1.0-beta1';
+	/* Contains the last HTTP status code returned. */
+	public $http_code;
+    /* Contains the last HTTP headers returned. */
+    public $http_info;
+    /* Contains the last API call. */
+    public $url;
+    /* Set up the API root URL. */
+    public $host = 'https://api.mediatemple.net/api/v1/';
+    /* Respons format. */
+    public $format = 'json';
+    /* Decode returned json data. */
+    public $decode_json = TRUE;
+    /* Set wrapRoot default */
+    public $wrap_root = FALSE;
+    /* Set prettyPrint default */
+    public $pretty_print = FALSE;
+    /* Set timeout default. */
+    public $timeout = 30;
+    /* Set connect timeout. */
+    public $connecttimeout = 30; 
+    /* Verify SSL Cert. */
+    public $ssl_verifypeer = FALSE;
+    /* Set the useragent. */
+    public $useragent = 'PHP MtAPI v1.0-beta1';
 	/* Contains the API key */
 	private $api_key;
 	/* Contains the service ID */
 	private $service_id;
 
 
-  /**
-   * Set API URLS
-   */
-  function servicesAPI() { return $this->host . 'services'; }
-  function statsAPI() { return $this->host . 'stats'; }
+	/**
+	 * Set API URLS
+	 */
+	function servicesAPI() { return $this->host . 'services'; }
+	function statsAPI() { return $this->host . 'stats'; }
 
-  /**
-   * Debug helpers
-   */
-  function lastStatusCode() { return $this->http_status; }
-  function lastAPICall() { return $this->last_api_call; }
+	/**
+	 * Debug helpers
+	 */
+	function lastStatusCode() { return $this->http_status; }
+	function lastAPICall() { return $this->last_api_call; }
 
-  /**
-   * Construct (mt) API object
-   */
-  function __construct($api_key, $service_id = NULL) {
-  	
-  	if ($api_key == '' || strlen($api_key) != 65) { die('Invalid API Key'); }
-  	if (!is_int($service_id) && $service_id != NULL) { die('Invalid Service ID'); }
-  	
-  	$this->api_key = $api_key;
-  	$this->service_id = $service_id;
-  	
-  }
+	/**
+	 * Construct (mt) API object
+	 */
+	function __construct($api_key, $service_id = NULL) {
+		
+		if ($api_key == '' || strlen($api_key) != 65) { die('Invalid API Key'); }
+		if (!is_int($service_id) && $service_id != NULL) { die('Invalid Service ID'); }
+		
+		$this->api_key = $api_key;
+		$this->service_id = $service_id;
+		
+	}
  
-  /**
-   * Set service ID 
-   */
-  function set_service_id($service_id) { if (is_int($service_id)) { $this->service_id = $service_id; } }
+	/**
+	 * Set service ID 
+	 */
+	function set_service_id($service_id) { if (is_int($service_id)) { $this->service_id = $service_id; } }
   
   
-  /** SERVICES METHODS **/
+	/** SERVICES METHODS **/
   
   
-  /**
-   * Add a service
-   */
+	/**
+	 * Add a service
+ 	 */
 	function add_service($service_type, $primary_domain = '', $os = 16) {
 		
 		if (!is_int($service_type)) { die('Invalid service type.'); }
@@ -108,8 +108,8 @@ class MtAPI {
 		
 	}
 	
-  /**
-   * Get operating systems list
+	/**
+ 	 * Get operating systems list
 	 */
 	function get_os_list() {
 		
@@ -120,7 +120,7 @@ class MtAPI {
 	}
 	
 	/**
-   * Get available_services
+	 * Get available_services
 	 */
 	function get_available_services() {
 		
@@ -130,8 +130,8 @@ class MtAPI {
 		
 	}
 	
-  /**
-   * Get services list
+	/**
+	 * Get services list
 	 */
 	function get_services_list() {
 		
@@ -142,7 +142,7 @@ class MtAPI {
 	}
 	
 	/**
-   * Get services ids
+	 * Get services ids
 	 */
 	function get_services_ids() {
 		
@@ -359,83 +359,79 @@ class MtAPI {
 	function api_call($url, $method = 'POST', $put_data = '', $post_data = array(), $get_data = array()) {
 		
 		$this->http_info = array();
-    $ch = curl_init();
+    	$ch = curl_init();
     
-    $headers = array('Expect:');
-    
-    /* Curl settings */
-    curl_setopt($ch, CURLOPT_USERAGENT, $this->useragent);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
-    curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
-    curl_setopt($ch, CURLOPT_HEADER, FALSE);
-		
-    if ($method == 'POST') {
+		$headers = array('Expect:');
+
+		/* Curl settings */
+		curl_setopt($ch, CURLOPT_USERAGENT, $this->useragent);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
+		curl_setopt($ch, CURLOPT_HEADER, FALSE);
+			
+		if ($method == 'POST') {
     	
-    	$headers[] = "Authorization: MediaTemple $this->api_key";
-    	$headers[] = "Accept: application/$this->format";
-    	$headers[] = "Content-type: application/$this->format";
-    	
-    	curl_setopt($ch, CURLOPT_POST, TRUE);
-    	
-    	if (!empty($post_data)) {
-      	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-      }
+			$headers[] = "Authorization: MediaTemple $this->api_key";
+			$headers[] = "Accept: application/$this->format";
+			$headers[] = "Content-type: application/$this->format";
+
+			curl_setopt($ch, CURLOPT_POST, TRUE);
+
+			if (!empty($post_data)) curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
       
-      if ($this->wrap_root == FALSE) $url .= '?wrapRoot=false';
+			if ($this->wrap_root == FALSE) $url .= '?wrapRoot=false';
       
-    }
-    elseif ($method == 'PUT') {
+		}
+		elseif ($method == 'PUT') {
     	
-    	$headers[] = "Authorization: MediaTemple $this->api_key";
-    	$headers[] = "Accept: application/$this->format";
-    	$headers[] = "Content-type: application/json";
-    	
+			$headers[] = "Authorization: MediaTemple $this->api_key";
+			$headers[] = "Accept: application/$this->format";
+			$headers[] = "Content-type: application/json";
+			    	
 			if (!$put_file = tmpfile()) die('Can\'t create the temp file.');
 			fwrite($put_file, $put_data);
 			fseek($put_file, 0);
-    	
-    	curl_setopt($ch, CURLOPT_PUT, TRUE);
+
+			curl_setopt($ch, CURLOPT_PUT, TRUE);
 			curl_setopt($ch, CURLOPT_INFILE, $put_file);
 			curl_setopt($ch, CURLOPT_INFILESIZE, strlen($put_data));
     	
-    }
-    elseif ($method == 'GET') {
+		}
+		elseif ($method == 'GET') {
     	
-    	$url .= '.' . $this->format . '?apikey=' . $this->api_key;
-    	if ($this->wrap_root == FALSE) $url .= '&wrapRoot=false';
-    	
-    	if (!empty($get_data)) {
-    		
-    		foreach ($get_data as $key => $value) {
-    			
-    			$url .= '&' . $key . '=' . $value;
-    			
-    		}
-    		
-    	}
-    	
-    }
-    
-    if ($this->pretty_print) $url .= '&prettyPrint=true';
+			$url .= '.' . $this->format . '?apikey=' . $this->api_key;
+			if ($this->wrap_root == FALSE) $url .= '&wrapRoot=false';
 
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_URL, $url);
+			if (!empty($get_data)) {
+				
+				foreach ($get_data as $key => $value) {
+					$url .= '&' . $key . '=' . $value;
+				}
+				
+			}
+    	
+		}
     
-    $response = curl_exec($ch);
+		if ($this->pretty_print) $url .= '&prettyPrint=true';
+
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_URL, $url);
     
-    $this->http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $this->http_info = array_merge($this->http_info, curl_getinfo($ch));
-    $this->url = $url;
-    $this->last_api_call = $url;
+			$response = curl_exec($ch);
+
+			$this->http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			$this->http_info = array_merge($this->http_info, curl_getinfo($ch));
+			$this->url = $url;
+			$this->last_api_call = $url;
+
+			curl_close ($ch);
+
+			if ($method == 'PUT') fclose($put_file);
+
+			return $response;
     
-    curl_close ($ch);
-    
-    if ($method == 'PUT') fclose($put_file);
-    
-    return $response;
-    
-  }
-  
+		}
+
 }
