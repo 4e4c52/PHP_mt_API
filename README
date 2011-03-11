@@ -57,7 +57,9 @@ $result = $mt->flush_firewall();
 ==Stats API==
 
 Get current stats (your service id must be set):
-$stats = $mt->get_current_stats();
+$stats = $mt->get_current_stats([array $field_list]);
+// $field_list is an array containing the fields which you want to return from this call, such as cpu, memory, status, etc.
+
 
 Get a range of stats (your service id must be set):
 $rangeStats = $mt->get_range_stats(int $start, int $end [, int $resolution [,int $precision]]);
