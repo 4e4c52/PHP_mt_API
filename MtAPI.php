@@ -54,7 +54,7 @@ class MtAPI {
 	/**
 	 * Debug helpers
 	 */
-	function lastStatusCode() { return $this->http_status; }
+	function lastStatusCode() { return $this->http_code; }
 	function lastAPICall() { return $this->last_api_call; }
 
 	/**
@@ -264,12 +264,23 @@ class MtAPI {
 	 * @return Current stats according to the selected format
 	 *
 	 */
-	function get_current_stats() {
+	function get_current_stats($field_list = array()) {
 		
 		$this->check_service_id();
+		$get_data = array();
+		
+		if (!empty($field_list)) {
+			if ($this->wrap_root) {
+				foreach ($field_list as $key=>$value) {
+					$field_list[$key] = 'stats.'.$value;
+				}
+			}
+			
+			$get_data = array('fieldList'=>implode(',',$field_list));
+		}
 		
 		$url = $this->statsAPI() . '/' . $this->service_id;
-		return $this->api_call($url, 'GET');
+		return $this->api_call($url, 'GET', '', array(), $get_data);
 		
 	}
 	
@@ -291,9 +302,10 @@ class MtAPI {
 			'resolution' => $resolution,
 			'precision'  => $precision
 			);
+
 		
 		$url = $this->statsAPI() . '/' . $this->service_id;
-		return $this->api_call($url, 'GET', array(), array(), $get_data);
+		return $this->api_call($url, 'GET', '', array(), $get_data);
 		
 	}
 	
@@ -311,6 +323,7 @@ class MtAPI {
 		
 		$this->check_service_id();
 		
+				
 		$url = $this->statsAPI() . '/' . $this->service_id . '/' . $range;
 		return $this->api_call($url, 'GET');
 		
