@@ -290,7 +290,7 @@ class MtAPI {
 	 * @return Stat list for the selected period according to the selected format
 	 *
 	 */
-	function get_range_stats($start, $end, $resolution = 15, $precision = 2) {
+	function get_range_stats($start, $end, $resolution = 15, $precision = 2, $field_list = array()) {
 		
 		if (!is_int($start) || !is_int($end) || !is_int($resolution) || !is_int($precision)) { die('All params must be of type int.');	}
 		
@@ -302,7 +302,19 @@ class MtAPI {
 			'resolution' => $resolution,
 			'precision'  => $precision
 			);
-
+		
+		if (!empty($field_list)) {
+			$this->wrap_root = false;
+			foreach ($field_list as $key=>$value) {
+				if (!in_array($value,array('timeStamp','resolution','serviceId'))) {
+					$field_list[$key] = 'stats.'.$value;
+				}
+			}
+			$field_list[] = 'stats';
+		
+			
+			$get_data['fieldList'] = implode(',',$field_list);
+		}
 		
 		$url = $this->statsAPI() . '/' . $this->service_id;
 		return $this->api_call($url, 'GET', '', array(), $get_data);
@@ -315,7 +327,7 @@ class MtAPI {
 	 * @return Stats list for the selected range according to the selected format
 	 *
 	 */
-	function get_predefined_range_stats($range) {
+	function get_predefined_range_stats($range, $field_list = array()) {
 		
 		$ranges = array('5min', '15min', '30min', '1hour', '1day', '1week', '1month', '3month', '1year');
 		
@@ -323,9 +335,22 @@ class MtAPI {
 		
 		$this->check_service_id();
 		
-				
+		if (!empty($field_list)) {
+			$this->wrap_root = false;
+			foreach ($field_list as $key=>$value) {
+				if (!in_array($value,array('timeStamp','resolution','serviceId'))) {
+					$field_list[$key] = 'stats.'.$value;
+				}
+			}
+			$field_list[] = 'stats';
+			$field_list[] = 'stats.timeStamp';
+		
+			
+			$get_data['fieldList'] = implode(',',$field_list);
+		}
+		
 		$url = $this->statsAPI() . '/' . $this->service_id . '/' . $range;
-		return $this->api_call($url, 'GET');
+		return $this->api_call($url, 'GET', '', array(), $get_data);
 		
 	}
 	
