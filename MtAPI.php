@@ -250,7 +250,7 @@ class MtAPI {
 		$this->check_service_id();
 		
 		$url = $this->servicesAPI() . '/' . $this->service_id . '/firewall/flush';
-		return $this->api_call($url, 'POST')
+		return $this->api_call($url, 'POST');
 		
 	}
 	
