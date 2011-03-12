@@ -43,10 +43,8 @@ class MtAPI {
 	private $api_key;
 	/* Contains the service ID */
 	private $service_id;
-	/* Contains the verified service ID */
-	private $verfied_service_id;
-	/* if the service ID is verified or not */
-	private $service_id_verified = FALSE;
+	/* Contains the verified service IDs */
+	private $verified_service_ids = array();
 
 
 	/**
@@ -399,22 +397,20 @@ class MtAPI {
 		
 		if (!is_int($this->service_id)) die("You must set your service ID before using this function.");
 		
-		if (!$this->service_id_verified || ($this->verified_service_id !== $this->service_id)) {
+		if (!in_array($this->service_id,$this->verified_service_ids)) {
 			/* verify the service id because it hasn't been done, or has changed */
-
+			echo "verifying service id\n";
 			$config = array($this->format, $this->decode_json, $this->wrap_root);
 			$this->format = 'json';
 			$this->decode_json = TRUE;
 			$this->wrap_root = FALSE;
 			
-			$services = $this->get_services_ids();
-			$exists =  array_keys($services, $this->service_id);
+			$this->verified_service_ids = $this->get_services_ids();
+			$exists =  array_keys($this->verified_service_ids, $this->service_id);
 			if (empty($exists)) {
 				die("The service ID $this->service_id doesn't match your API Key.");
-			} else {
-				$this->service_id_verified = TRUE;
-				$this->verified_service_id = $this->service_id;
 			}
+			
 			$this->format = $config[0];
 			$this->decode_json = $config[1];
 			$this->wrap_root = $config[2];
