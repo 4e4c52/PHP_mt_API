@@ -60,14 +60,17 @@ Get current stats (your service id must be set):
 $stats = $mt->get_current_stats([array $field_list]);
 // $field_list is an array containing the fields which you want to return from this call, such as cpu, memory, status, etc.
 
-
 Get a range of stats (your service id must be set):
-$rangeStats = $mt->get_range_stats(int $start, int $end [, int $resolution [,int $precision]]);
+$rangeStats = $mt->get_range_stats(int $start, int $end [, int $resolution [,int $precision [, array $field_list]]]);
 // Where $start and $end are a number of seconds since Epoch
+// $field_list is an array containing the fields which you want to return from this call, such as cpu, memory, status, etc.
+// if you include $field_list, the function will always return the timestamp for the individual periods
 
 Get a predefined range of stats (your service id must be set):
-$rangeStats = $mt->get_predefined_range_stats(string $range);
+$rangeStats = $mt->get_predefined_range_stats(string $range [, array $field_list]);
 // See http://wiki.mediatemple.net/w/(mt):Get_predefined_range_stats#Request_Info for a list of supported ranges (ex: 5min, 1hour, ...)
+// $field_list is an array containing the fields which you want to return from this call, such as cpu, memory, status, etc.
+// if you include $field_list, the function will always return the timestamp for the individual periods
 
 Get warnings (your service id must be set):
 $warnings = $mt->get_warnings();
